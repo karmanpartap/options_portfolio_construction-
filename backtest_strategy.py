@@ -268,30 +268,7 @@ def heston_objective(params):
         cnt       += 1
     return total_err/cnt if cnt>0 else 1e12
 
-def calibrate_heston(S, r, data):
-    global _global_S, _global_r, _global_data
-    _global_S, _global_r, _global_data = S, r, data.copy()
-    bounds = [
-        (0.1, 10.0),
-        (0.05, 0.5),
-        (0.1, 1.5),
-        (-0.99, -0.01),
-        (0.05, 1.5),
-    ]
-    print("→ Running global differential evolution…")
-    de = differential_evolution(
-        heston_objective, bounds,
-        strategy='best1exp', maxiter=50, popsize=30,
-        tol=1e-3, recombination=0.7, mutation=(0.5,1.5),
-        disp=True, workers=1
-    )
-    print("→ Running local Nelder–Mead…")
-    nm = minimize(
-        heston_objective, de.x,
-        method='Nelder-Mead',
-        options={'maxiter':500, 'xatol':1e-6, 'fatol':1e-6, 'disp':True}
-    )
-    return nm.x
+
 
 def run_calibration(
     df: pd.DataFrame,
@@ -429,8 +406,7 @@ def compute_and_filter_mispricing(df_cal, spot_price, risk_free, reference_dt, M
 # ─────────────────────────────
 def optimize_portfolio(df_top):
     df = df_top.copy()
-    SPOT_PRICE = float(df["strike"].mean())  # or supply externally
-    BUDGET     = 1_000_000
+    SPOT_PRICE = float(df["strike"].mean())  
     CALL_RATIO = 0.75
     PUT_RATIO  = 0.25
     MIN_DISTINCT_STRIKES     = 4
