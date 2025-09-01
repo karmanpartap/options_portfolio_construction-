@@ -1,6 +1,6 @@
-# Heston Mispricing Backtest
+# Option_portfolio_Backtest
 
-This repository contains a **quantitative backtesting pipeline** for detecting and exploiting option mispricings using the **Heston stochastic volatility model**, integrated with **Databento market data** and the **NautilusTrader** backtesting engine.
+This repository implements a quantitative backtesting framework that exploits option mispricings detected through the Heston stochastic model. The identified inefficiencies are used to construct systematic option portfolios, which are then evaluated using the NautilusTrader backtesting engine with Databento OPRA market data for execution-level realism
 
 ## Repository Structure
 
