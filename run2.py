@@ -20,7 +20,7 @@ def main():
             config={
                 "strategy_id": "HESTON-BACKTEST-001",
                 "instrument_symbol": "TSLA",
-                "databento_api_key": "db-DEG5Vr3msMNj7AijJ9TLrR8UkW75w", 
+                "databento_api_key": "api key", 
                 "data_date": "2025-04-04",
                 "risk_free": 0.0435,
                 "max_days": 60,
